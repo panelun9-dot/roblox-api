@@ -3,153 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Regala Robux</title>
+<title>Roblox Gift</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body{background:#111827;color:white;text-align:center;}
 
+/* KEY */
 #keyScreen{
 position:fixed;top:0;left:0;width:100%;height:100%;
-background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
 }
 
 .key-box{
-background:#1f2937;padding:30px;border-radius:25px;width:90%;max-width:450px;
+background:#1f2937;
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
 }
 
-input,select,button{
-width:90%;padding:18px;margin:10px;border:none;border-radius:18px;font-size:18px;
+.key-box input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+background:#374151;
+color:white;
 }
 
-input,select{background:#374151;color:white;}
-button{background:#22c55e;color:white;font-weight:bold;cursor:pointer;}
+.key-box button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#22c55e;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
 
+#errorKey{color:red;margin-top:10px;}
+
+body{
+background:radial-gradient(circle,#1f2937,#0b0f19);
+color:white;
+text-align:center;
+}
+
+/* TOP */
 .topbar{
-background:white;padding:15px;display:flex;justify-content:space-between;align-items:center;
+background:white;
+padding:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.logo{font-size:40px;color:black;font-weight:bold;transform:rotate(15deg);}
+.roblox-title{
+font-size:32px;
+font-weight:900;
+color:#111827;
+}
+
+.gift-title{
+font-size:32px;
+font-weight:900;
+color:#22c55e;
+}
 
 .session-box{
-display:flex;align-items:center;gap:12px;
+display:flex;
+align-items:center;
+gap:10px;
 background:#111827;
-padding:10px 18px;
-border-radius:18px;
+padding:8px 12px;
+border-radius:15px;
 border:2px solid #22c55e;
 }
 
-.session-box img{width:50px;height:50px;border-radius:50%;}
-
-.session-text{font-size:14px;color:#22c55e;font-weight:bold;}
-.session-user{font-size:16px;color:white;font-weight:bold;}
-
-.balance{
-font-size:42px;color:#22c55e;margin:25px auto;font-weight:bold;
-background:#0b0b12;padding:20px;border-radius:20px;width:80%;max-width:500px;
-transition:0.3s;
+.session-box img{
+width:40px;height:40px;border-radius:50%;
 }
 
-.hero{padding:40px 20px;}
-.hero h1{font-size:60px;}
+.session-text{font-size:12px;color:#22c55e;}
+.session-user{font-size:14px;font-weight:bold;}
 
-.hero p{color:#9ca3af;font-size:22px;margin:20px 0;}
+/* CONTENT */
+h1{margin-top:20px;font-size:40px;}
+p{color:#cbd5e1;margin-top:5px;}
 
-.search-box,.card,.history,.info-section{
-background:#1f2937;padding:30px;border-radius:25px;width:90%;max-width:550px;margin:auto;margin-top:20px;
+.search-box,.card,.info-section{
+background:#1f2937;
+padding:20px;
+border-radius:18px;
+width:90%;
+max-width:550px;
+margin:auto;
+margin-top:20px;
 }
 
-.card{background:white;color:black;}
+input,select,button{
+width:90%;
+padding:14px;
+margin:8px;
+border:none;
+border-radius:12px;
+font-size:15px;
+}
 
-.card img{width:140px;height:140px;border-radius:50%;}
+input,select{background:#374151;color:white;}
 
-.loader{
-width:50px;height:50px;border:5px solid #333;
-border-top:5px solid #22c55e;border-radius:50%;
-animation:spin 1s linear infinite;margin:20px auto;
+button{
+background:#22c55e;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* SPINNER */
+.spinner{
+width:45px;
+height:45px;
+border:5px solid #444;
+border-top:5px solid #22c55e;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:15px auto;
 }
 
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-.success{color:#22c55e;font-size:28px;font-weight:bold;}
-
-.history-item{
-background:#0b0b12;
-padding:10px;
-margin:8px 0;
-border-radius:12px;
-border-left:4px solid #22c55e;
-font-size:14px;
-text-align:left;
+/* CARD */
+.card{
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
 }
 
+.card img{
+width:120px;
+height:120px;
+border-radius:50%;
+}
+
+/* PRECIOS */
 .prices{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-top:25px;
+gap:10px;
+margin-top:20px;
 }
 
 .price-card{
 background:#0b0b12;
-padding:18px;
-border-radius:18px;
-border:2px solid #22c55e;
+padding:12px;
+border-radius:12px;
+border:1px solid #22c55e;
 }
 
 .price-card p{
 color:#22c55e;
 font-weight:bold;
-margin-top:8px;
 }
 
-/* efectos */
-.shake{animation:shake 0.4s;}
-@keyframes shake{
-0%,100%{transform:translateX(0);}
-25%{transform:translateX(-6px);}
-50%{transform:translateX(6px);}
-75%{transform:translateX(-6px);}
+/* INFO FINAL */
+.info-section{
+text-align:left;
+line-height:1.6;
 }
 
-.glow{
-box-shadow:0 0 25px #22c55e;
-}
-
-/* TEXTO FINAL */
-.info-section h3{
-margin-top:25px;
+.info-section h2{
+text-align:center;
 color:#22c55e;
+}
+
+.info-section h3{
+color:#22c55e;
+margin-top:12px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- KEY -->
 <div id="keyScreen">
 <div class="key-box">
-<h1>Acceso Privado</h1>
-<input type="password" id="keyInput" placeholder="Escribe la key">
-<button onclick="verificarKey()">Entrar</button>
+<h2>ACCESO</h2>
+<input id="keyInput" placeholder="Escribe la key">
+<button onclick="checkKey()">Entrar</button>
 <p id="errorKey"></p>
 </div>
 </div>
 
+<!-- MAIN -->
+<div id="main" style="display:none;">
+
 <div class="topbar">
-<div class="logo">◼</div>
+<div class="roblox-title">ROBLOX</div>
+<div class="gift-title">Gift Robux</div>
 
 <div class="session-box">
-<img src="https://robohash.org/VICTORPITUDO22.png?size=80x80">
+<img src="https://robohash.org/user.png">
 <div>
 <p class="session-text">Sesión iniciada</p>
 <p class="session-user">VICTORPITUDO22</p>
 </div>
 </div>
 </div>
-
-<div class="balance" id="balanceBox">1,000,000</div>
-
-<section class="hero">
 
 <h1>Regala Robux</h1>
 <p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
@@ -170,32 +237,30 @@ color:#22c55e;
 <option>22500</option>
 </select>
 
-<button onclick="buscarUsuario()">Buscar</button>
+<button onclick="buscar()">Buscar</button>
 
 <div id="resultado"></div>
 
-<!-- precios -->
+<!-- PRECIOS -->
 <div class="prices">
 <div class="price-card"><h3>40 Robux</h3><p>US$0.49</p></div>
 <div class="price-card"><h3>80 Robux</h3><p>US$0.99</p></div>
 <div class="price-card"><h3>400 Robux</h3><p>US$4.99</p></div>
 <div class="price-card"><h3>800 Robux</h3><p>US$9.99</p></div>
-<div class="price-card"><h3>1,200 Robux</h3><p>US$14.99</p></div>
-<div class="price-card"><h3>1,700 Robux</h3><p>US$19.99</p></div>
-<div class="price-card"><h3>4,500 Robux</h3><p>US$49.99</p></div>
-<div class="price-card"><h3>10,000 Robux</h3><p>US$99.99</p></div>
-<div class="price-card"><h3>22,500 Robux</h3><p>US$199.99</p></div>
+<div class="price-card"><h3>1200 Robux</h3><p>US$14.99</p></div>
+<div class="price-card"><h3>1700 Robux</h3><p>US$19.99</p></div>
+<div class="price-card"><h3>4500 Robux</h3><p>US$49.99</p></div>
+<div class="price-card"><h3>10000 Robux</h3><p>US$99.99</p></div>
+<div class="price-card"><h3>22500 Robux</h3><p>US$199.99</p></div>
 </div>
 
 </div>
 
-<div class="history">
-<h3>Historial</h3>
-<div id="historial"></div>
 </div>
 
-<!-- 🔥 TU TEXTO FINAL CONSERVADO -->
+<!-- TEXTO FINAL -->
 <div class="info-section">
+
 <h2>Regala Robux</h2>
 
 <p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
@@ -208,92 +273,75 @@ color:#22c55e;
 
 <h3>¿No conoces a la persona?</h3>
 <p>Ignóralo y ponte en contacto con Soporte de Roblox.</p>
+
 </div>
 
-</section>
+</div>
 
 <script>
-let balance = 1000000;
-let historial = [];
 
-function actualizar(){
-document.getElementById("balanceBox").innerText = balance.toLocaleString();
-
-let h = document.getElementById("historial");
-h.innerHTML = "";
-
-historial.slice().reverse().forEach(x=>{
-h.innerHTML += `
-<div class="history-item">
-→ ${x.robux} a <b>${x.user}</b><br>
-⏱ ${x.time}
-</div>`;
-});
-}
-
-actualizar();
-
-function verificarKey(){
+/* KEY */
+function checkKey(){
 if(document.getElementById("keyInput").value==="VICTOR9009"){
 document.getElementById("keyScreen").style.display="none";
+document.getElementById("main").style.display="block";
 }else{
 document.getElementById("errorKey").innerText="Key incorrecta";
 }
 }
 
-function buscarUsuario(){
-const usuario=document.getElementById("username").value.trim();
-const robux=parseInt(document.getElementById("robux").value);
-const resultado=document.getElementById("resultado");
+/* BUSCAR */
+function buscar(){
 
-resultado.innerHTML='<div class="loader"></div><p>Buscando...</p>';
+let u=document.getElementById("username").value;
+
+document.getElementById("resultado").innerHTML=`
+<div class="spinner"></div>
+<p>Buscando usuario...</p>
+`;
 
 setTimeout(()=>{
-resultado.innerHTML=`
+
+let id=Math.floor(Math.random()*99999999);
+
+document.getElementById("resultado").innerHTML=`
 <div class="card">
-<img src="https://robohash.org/${usuario}.png?size=200x200">
-<h2>${usuario}</h2>
-<p>ID: ${Math.floor(Math.random()*99999999)}</p>
-<button onclick="donar('${usuario}',${robux})">Donar ${robux}</button>
-</div>`;
+<img src="https://robohash.org/${u}.png">
+<h2>${u}</h2>
+<p>ID: ${id}</p>
+<button onclick="donar('${u}',${id})">Donar</button>
+</div>
+`;
+
 },1200);
+
 }
 
-function donar(usuario,robux){
-const resultado=document.getElementById("resultado");
+/* DONAR */
+function donar(user,id){
 
-if(balance < robux){
-resultado.classList.add("shake");
-setTimeout(()=>resultado.classList.remove("shake"),400);
-resultado.innerHTML = `<p style="color:red;font-size:22px;">Saldo insuficiente</p>`;
-return;
-}
+let robux=document.getElementById("robux").value;
 
-resultado.innerHTML='<div class="loader"></div><p>Transfiriendo...</p>';
+document.getElementById("resultado").innerHTML=`
+<div class="spinner"></div>
+<p>Procesando donación...</p>
+`;
 
 setTimeout(()=>{
-balance -= robux;
 
-historial.push({
-user: usuario,
-robux: robux,
-time: new Date().toLocaleString()
-});
-
-actualizar();
-
-document.getElementById("balanceBox").classList.add("glow");
-setTimeout(()=>document.getElementById("balanceBox").classList.remove("glow"),500);
-
-resultado.innerHTML=`
+document.getElementById("resultado").innerHTML=`
 <div class="card">
-<h2 class="success">Transferencia completada</h2>
-<p>${robux} enviados a ${usuario}</p>
-<button onclick="location.reload()">Volver</button>
-</div>`;
+<h2>✔ Robux enviados</h2>
+<p>${robux} Robux enviados a ${user}</p>
+<p>ID: ${id}</p>
+</div>
+`;
+
 },1800);
+
 }
+
 </script>
 
 </body>
-  </html>
+</html>
