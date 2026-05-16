@@ -139,7 +139,6 @@ margin-top:20px;
 </div>
 
 <div class="navbar">Roblox</div>
-
 <div class="balance" id="misRobux">1,000,000</div>
 
 <section class="hero">
@@ -147,7 +146,6 @@ margin-top:20px;
 <p>¡Envía hasta un 25% más de Robux!</p>
 
 <div class="search-box">
-
 <input id="username" placeholder="Usuario Roblox">
 
 <select id="robux">
@@ -161,12 +159,10 @@ margin-top:20px;
 <button onclick="buscarUsuario()">Buscar</button>
 
 <div id="resultado"></div>
-
 </div>
 </section>
 
 <script>
-
 function verificarKey(){
 const key=document.getElementById("keyInput").value;
 
@@ -178,7 +174,6 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 }
 
 async function buscarUsuario(){
-
 const usuario=document.getElementById("username").value.trim();
 const robux=document.getElementById("robux").value;
 const resultado=document.getElementById("resultado");
@@ -191,9 +186,8 @@ return;
 resultado.innerHTML='<div class="error">Buscando...</div>';
 
 try{
-
 const res=await fetch(
-"https://api.allorigins.win/raw?url=https://users.roblox.com/v1/usernames/users",
+"https://corsproxy.io/?https://users.roblox.com/v1/usernames/users",
 {
 method:"POST",
 headers:{
@@ -208,18 +202,18 @@ excludeBannedUsers:false
 
 const data=await res.json();
 
-if(!data.data || data.data.length===0){
+if(!data.data || !data.data.length){
 resultado.innerHTML='<div class="error">Usuario no encontrado</div>';
 return;
 }
 
 const user=data.data[0];
 
-const avatar=`https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${user.id}-150-150-Png/150/150/AvatarHeadshot/Png/noFilter`;
+const avatar=`https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=420&height=420&format=png`;
 
 resultado.innerHTML=`
 <div class="card">
-<img src="${avatar}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+<img src="${avatar}">
 <h2>${user.name}</h2>
 <p>${user.displayName}</p>
 <p>ID: ${user.id}</p>
@@ -231,12 +225,10 @@ Donar ${robux}
 
 }catch(error){
 resultado.innerHTML='<div class="error">Error buscando usuario</div>';
-console.log(error);
 }
 }
 
 function donar(usuario,robux){
-
 let balance=parseInt(
 document.getElementById("misRobux").innerText.replace(/,/g,'')
 );
@@ -247,7 +239,6 @@ return;
 }
 
 balance-=robux;
-
 document.getElementById("misRobux").innerText=balance.toLocaleString();
 
 document.getElementById("resultado").innerHTML=`
@@ -258,7 +249,6 @@ document.getElementById("resultado").innerHTML=`
 </div>
 `;
 }
-
 </script>
 
 </body>
