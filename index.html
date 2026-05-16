@@ -6,7 +6,12 @@
 <title>Regala Robux</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
 body{
 background:#111827;
@@ -14,10 +19,13 @@ color:white;
 text-align:center;
 }
 
+/* pantalla key */
 #keyScreen{
 position:fixed;
-top:0;left:0;
-width:100%;height:100%;
+top:0;
+left:0;
+width:100%;
+height:100%;
 background:#000;
 display:flex;
 justify-content:center;
@@ -25,14 +33,12 @@ align-items:center;
 z-index:9999;
 }
 
-.key-box,.search-box,.card{
+.key-box{
 background:#1f2937;
 padding:30px;
 border-radius:25px;
 width:90%;
-max-width:500px;
-margin:auto;
-box-shadow:0 0 20px rgba(0,0,0,.5);
+max-width:450px;
 }
 
 input,select,button{
@@ -56,29 +62,86 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.navbar{
-background:black;
-padding:20px;
-font-size:28px;
+/* barra estilo roblox */
+.topbar{
+background:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:40px;
+color:black;
 font-weight:bold;
+transform:rotate(15deg);
+}
+
+.registro{
+background:#2563eb;
+color:white;
+width:auto;
+padding:14px 25px;
+border-radius:18px;
+}
+
+.login{
+background:white;
+color:#666;
+border:2px solid #999;
+width:auto;
+padding:14px 25px;
+border-radius:18px;
+}
+
+.search{
+font-size:35px;
+color:#666;
 }
 
 .balance{
 font-size:42px;
 color:#22c55e;
-margin:20px;
+margin:25px;
 font-weight:bold;
+background:#0b0b12;
+padding:20px;
+border-radius:20px;
+width:80%;
+max-width:500px;
+margin-left:auto;
+margin-right:auto;
 }
 
 .hero{
 padding:40px 20px;
 }
 
+.hero h1{
+font-size:60px;
+}
+
+.hero p{
+color:#9ca3af;
+font-size:22px;
+margin:20px 0;
+}
+
+.search-box,.card{
+background:#1f2937;
+padding:30px;
+border-radius:25px;
+width:90%;
+max-width:550px;
+margin:auto;
+margin-top:20px;
+}
+
 .card img{
 width:140px;
 height:140px;
 border-radius:50%;
-margin-bottom:15px;
 }
 
 .loader{
@@ -113,12 +176,18 @@ font-weight:bold;
 </div>
 </div>
 
-<div class="navbar">Roblox</div>
+<div class="topbar">
+<div class="logo">◼</div>
+<button class="registro">Registro</button>
+<button class="login">Iniciar sesión</button>
+<div class="search">⌕</div>
+</div>
+
 <div class="balance" id="misRobux">1,000,000</div>
 
 <section class="hero">
 <h1>Regala Robux</h1>
-<p>Envía Robux fácilmente</p>
+<p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
 
 <div class="search-box">
 <input id="username" placeholder="Usuario Roblox">
@@ -138,7 +207,6 @@ font-weight:bold;
 </section>
 
 <script>
-
 function verificarKey(){
 const key=document.getElementById("keyInput").value;
 
@@ -150,7 +218,6 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 }
 
 function buscarUsuario(){
-
 const usuario=document.getElementById("username").value.trim();
 const robux=document.getElementById("robux").value;
 const resultado=document.getElementById("resultado");
@@ -163,7 +230,6 @@ return;
 resultado.innerHTML='<div class="loader"></div><p>Buscando usuario...</p>';
 
 setTimeout(()=>{
-
 const avatar=`https://robohash.org/${usuario}.png?size=200x200`;
 
 resultado.innerHTML=`
@@ -176,23 +242,21 @@ Donar ${robux}
 </button>
 </div>
 `;
-
 },2000);
 }
 
 function donar(usuario,robux){
-
 const resultado=document.getElementById("resultado");
 
 resultado.innerHTML='<div class="loader"></div><p>Procesando donación...</p>';
 
 setTimeout(()=>{
-
 let balance=parseInt(
 document.getElementById("misRobux").innerText.replace(/,/g,'')
 );
 
 balance-=robux;
+
 document.getElementById("misRobux").innerText=balance.toLocaleString();
 
 resultado.innerHTML=`
@@ -202,10 +266,8 @@ resultado.innerHTML=`
 <button onclick="location.reload()">Volver</button>
 </div>
 `;
-
 },3000);
 }
-
 </script>
 
 </body>
