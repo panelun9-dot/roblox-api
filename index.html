@@ -29,55 +29,59 @@ button{background:#22c55e;color:white;font-weight:bold;cursor:pointer;}
 background:white;padding:15px;display:flex;justify-content:space-between;align-items:center;
 }
 
-.logo{
-font-size:40px;color:black;font-weight:bold;transform:rotate(15deg);
-}
+.logo{font-size:40px;color:black;font-weight:bold;transform:rotate(15deg);}
 
 .session-box{
-display:flex;
-align-items:center;
-gap:12px;
+display:flex;align-items:center;gap:12px;
 background:#111827;
 padding:10px 18px;
 border-radius:18px;
 border:2px solid #22c55e;
 }
 
-.session-box img{
-width:50px;height:50px;border-radius:50%;
-}
+.session-box img{width:50px;height:50px;border-radius:50%;}
 
-.session-text{
-font-size:14px;
-color:#22c55e;
-font-weight:bold;
-}
-
-.session-user{
-font-size:16px;
-color:white;
-font-weight:bold;
-}
-
-.search{
-font-size:35px;color:#666;
-}
+.session-text{font-size:14px;color:#22c55e;font-weight:bold;}
+.session-user{font-size:16px;color:white;font-weight:bold;}
 
 .balance{
 font-size:42px;color:#22c55e;margin:25px auto;font-weight:bold;
 background:#0b0b12;padding:20px;border-radius:20px;width:80%;max-width:500px;
+transition:0.3s;
 }
 
 .hero{padding:40px 20px;}
 .hero h1{font-size:60px;}
+
 .hero p{color:#9ca3af;font-size:22px;margin:20px 0;}
 
-.search-box,.card{
+.search-box,.card,.history,.info-section{
 background:#1f2937;padding:30px;border-radius:25px;width:90%;max-width:550px;margin:auto;margin-top:20px;
 }
 
 .card{background:white;color:black;}
+
 .card img{width:140px;height:140px;border-radius:50%;}
+
+.loader{
+width:50px;height:50px;border:5px solid #333;
+border-top:5px solid #22c55e;border-radius:50%;
+animation:spin 1s linear infinite;margin:20px auto;
+}
+
+@keyframes spin{100%{transform:rotate(360deg);}}
+
+.success{color:#22c55e;font-size:28px;font-weight:bold;}
+
+.history-item{
+background:#0b0b12;
+padding:10px;
+margin:8px 0;
+border-radius:12px;
+border-left:4px solid #22c55e;
+font-size:14px;
+text-align:left;
+}
 
 .prices{
 display:grid;
@@ -99,37 +103,27 @@ font-weight:bold;
 margin-top:8px;
 }
 
-.loader{
-width:50px;height:50px;border:5px solid #333;
-border-top:5px solid #22c55e;border-radius:50%;
-animation:spin 1s linear infinite;margin:20px auto;
+/* efectos */
+.shake{animation:shake 0.4s;}
+@keyframes shake{
+0%,100%{transform:translateX(0);}
+25%{transform:translateX(-6px);}
+50%{transform:translateX(6px);}
+75%{transform:translateX(-6px);}
 }
 
-@keyframes spin{
-100%{transform:rotate(360deg);}
+.glow{
+box-shadow:0 0 25px #22c55e;
 }
 
-.success{
-color:#22c55e;font-size:28px;font-weight:bold;
-}
-
-.info-section{
-margin:40px auto;
-padding:30px;
-width:90%;
-max-width:900px;
-background:#1f2937;
-border-radius:25px;
-text-align:left;
-line-height:1.8;
-}
-
+/* TEXTO FINAL */
 .info-section h3{
 margin-top:25px;
 color:#22c55e;
 }
 </style>
 </head>
+
 <body>
 
 <div id="keyScreen">
@@ -151,19 +145,18 @@ color:#22c55e;
 <p class="session-user">VICTORPITUDO22</p>
 </div>
 </div>
-
-<div class="search">⌕</div>
 </div>
 
-<div class="balance" id="misRobux">1,000,000</div>
+<div class="balance" id="balanceBox">1,000,000</div>
 
 <section class="hero">
+
 <h1>Regala Robux</h1>
 <p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
 
 <div class="search-box">
 
-<input id="username" placeholder="Buscar nombre de usuario">
+<input id="username" placeholder="Buscar usuario">
 
 <select id="robux">
 <option>40</option>
@@ -181,6 +174,7 @@ color:#22c55e;
 
 <div id="resultado"></div>
 
+<!-- precios -->
 <div class="prices">
 <div class="price-card"><h3>40 Robux</h3><p>US$0.49</p></div>
 <div class="price-card"><h3>80 Robux</h3><p>US$0.99</p></div>
@@ -194,10 +188,16 @@ color:#22c55e;
 </div>
 
 </div>
-</section>
 
+<div class="history">
+<h3>Historial</h3>
+<div id="historial"></div>
+</div>
+
+<!-- 🔥 TU TEXTO FINAL CONSERVADO -->
 <div class="info-section">
 <h2>Regala Robux</h2>
+
 <p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
 
 <h3>¿Qué es Roblox?</h3>
@@ -210,7 +210,29 @@ color:#22c55e;
 <p>Ignóralo y ponte en contacto con Soporte de Roblox.</p>
 </div>
 
+</section>
+
 <script>
+let balance = 1000000;
+let historial = [];
+
+function actualizar(){
+document.getElementById("balanceBox").innerText = balance.toLocaleString();
+
+let h = document.getElementById("historial");
+h.innerHTML = "";
+
+historial.slice().reverse().forEach(x=>{
+h.innerHTML += `
+<div class="history-item">
+→ ${x.robux} a <b>${x.user}</b><br>
+⏱ ${x.time}
+</div>`;
+});
+}
+
+actualizar();
+
 function verificarKey(){
 if(document.getElementById("keyInput").value==="VICTOR9009"){
 document.getElementById("keyScreen").style.display="none";
@@ -221,10 +243,10 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 
 function buscarUsuario(){
 const usuario=document.getElementById("username").value.trim();
-const robux=document.getElementById("robux").value;
+const robux=parseInt(document.getElementById("robux").value);
 const resultado=document.getElementById("resultado");
 
-resultado.innerHTML='<div class="loader"></div><p>Buscando usuario...</p>';
+resultado.innerHTML='<div class="loader"></div><p>Buscando...</p>';
 
 setTimeout(()=>{
 resultado.innerHTML=`
@@ -234,22 +256,42 @@ resultado.innerHTML=`
 <p>ID: ${Math.floor(Math.random()*99999999)}</p>
 <button onclick="donar('${usuario}',${robux})">Donar ${robux}</button>
 </div>`;
-},2000);
+},1200);
 }
 
 function donar(usuario,robux){
 const resultado=document.getElementById("resultado");
 
-resultado.innerHTML='<div class="loader"></div><p>Procesando donación...</p>';
+if(balance < robux){
+resultado.classList.add("shake");
+setTimeout(()=>resultado.classList.remove("shake"),400);
+resultado.innerHTML = `<p style="color:red;font-size:22px;">Saldo insuficiente</p>`;
+return;
+}
+
+resultado.innerHTML='<div class="loader"></div><p>Transfiriendo...</p>';
 
 setTimeout(()=>{
+balance -= robux;
+
+historial.push({
+user: usuario,
+robux: robux,
+time: new Date().toLocaleString()
+});
+
+actualizar();
+
+document.getElementById("balanceBox").classList.add("glow");
+setTimeout(()=>document.getElementById("balanceBox").classList.remove("glow"),500);
+
 resultado.innerHTML=`
 <div class="card">
-<h2 class="success">Donación completada</h2>
-<p>${robux} Robux enviados a ${usuario}</p>
+<h2 class="success">Transferencia completada</h2>
+<p>${robux} enviados a ${usuario}</p>
 <button onclick="location.reload()">Volver</button>
 </div>`;
-},3000);
+},1800);
 }
 </script>
 
