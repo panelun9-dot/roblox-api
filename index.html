@@ -19,7 +19,7 @@ color:white;
 text-align:center;
 }
 
-/* pantalla key */
+/* KEY */
 #keyScreen{
 position:fixed;
 top:0;
@@ -62,7 +62,7 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* barra estilo roblox */
+/* TOPBAR */
 .topbar{
 background:white;
 padding:15px;
@@ -78,21 +78,31 @@ font-weight:bold;
 transform:rotate(15deg);
 }
 
-.registro{
-background:#2563eb;
-color:white;
-width:auto;
-padding:14px 25px;
+.session-box{
+display:flex;
+align-items:center;
+gap:12px;
+background:#f3f4f6;
+padding:10px 18px;
 border-radius:18px;
 }
 
-.login{
-background:white;
-color:#666;
-border:2px solid #999;
-width:auto;
-padding:14px 25px;
-border-radius:18px;
+.session-box img{
+width:50px;
+height:50px;
+border-radius:50%;
+}
+
+.session-text{
+font-size:14px;
+color:#16a34a;
+font-weight:bold;
+}
+
+.session-user{
+font-size:16px;
+color:black;
+font-weight:bold;
 }
 
 .search{
@@ -100,6 +110,7 @@ font-size:35px;
 color:#666;
 }
 
+/* MAIN */
 .balance{
 font-size:42px;
 color:#22c55e;
@@ -138,6 +149,11 @@ margin:auto;
 margin-top:20px;
 }
 
+.card{
+background:white;
+color:black;
+}
+
 .card img{
 width:140px;
 height:140px;
@@ -167,6 +183,7 @@ font-weight:bold;
 </head>
 <body>
 
+<!-- KEY -->
 <div id="keyScreen">
 <div class="key-box">
 <h1>Acceso Privado</h1>
@@ -176,10 +193,18 @@ font-weight:bold;
 </div>
 </div>
 
+<!-- TOPBAR -->
 <div class="topbar">
 <div class="logo">◼</div>
-<button class="registro">Registro</button>
-<button class="login">Iniciar sesión</button>
+
+<div class="session-box">
+<img src="https://robohash.org/VICTORPITUDO22.png?size=80x80">
+<div>
+<p class="session-text">Sesión iniciada</p>
+<p class="session-user">VICTORPITUDO22</p>
+</div>
+</div>
+
 <div class="search">⌕</div>
 </div>
 
