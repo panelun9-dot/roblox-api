@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo Roblox</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#1f1f2e;
+color:white;
+text-align:center;
+}
+
+#keyScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0a0a0f;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.key-box{
+background:#111827;
+padding:35px;
+border-radius:25px;
+width:90%;
+max-width:400px;
+}
+
+input,select,button{
+width:90%;
+padding:18px;
+margin:10px 0;
+border:none;
+border-radius:18px;
+font-size:20px;
+}
+
+input,select{
+background:#444;
+color:white;
+}
+
+button{
+background:#16a34a;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.navbar{
+background:black;
+padding:18px;
+font-size:28px;
+font-weight:bold;
+}
+
+.balance{
+margin:25px auto;
+background:#0b0b12;
+width:80%;
+max-width:500px;
+padding:20px;
+border-radius:20px;
+font-size:42px;
+color:#22c55e;
+font-weight:bold;
+}
+
+.hero{
+padding:40px 20px;
+}
+
+.hero h1{
+font-size:55px;
+}
+
+.search-box{
+background:#050510;
+padding:35px;
+border-radius:30px;
+width:90%;
+max-width:650px;
+margin:auto;
+}
+
+.card{
+background:white;
+color:black;
+padding:25px;
+border-radius:25px;
+margin-top:25px;
+}
+
+.card img{
+width:120px;
+height:120px;
+border-radius:50%;
+}
+</style>
+</head>
+
+<body>
+
+<div id="keyScreen">
+<div class="key-box">
+<h1>Acceso</h1>
+<input type="password" id="keyInput" placeholder="Escribe la key">
+<button onclick="verificarKey()">Entrar</button>
+<p id="errorKey"></p>
+</div>
+</div>
+
+<div class="navbar">Roblox Demo</div>
+
+<div class="balance" id="misRobux">1,000,000</div>
+
+<section class="hero">
+<h1>Demo Roblox</h1>
+
+<div class="search-box">
+<input id="username" placeholder="Usuario">
+
+<select id="robux">
+<option>100</option>
+<option>500</option>
+<option>1000</option>
+<option>10000</option>
+</select>
+
+<button onclick="buscarUsuario()">Buscar</button>
+
+<div id="resultado"></div>
+</div>
+</section>
+
+<script>
+function verificarKey(){
+const key=document.getElementById("keyInput").value;
+
+if(key==="VICTOR9009"){
+document.getElementById("keyScreen").style.display="none";
+}else{
+document.getElementById("errorKey").innerText="Key incorrecta";
+}
+}
+
+function buscarUsuario(){
+const usuario=document.getElementById("username").value;
+const robux=document.getElementById("robux").value;
+
+if(usuario===""){
+document.getElementById("resultado").innerHTML="<p>Escribe usuario</p>";
+return;
+}
+
+document.getElementById("resultado").innerHTML=`
+<div class="card">
+<h2>${usuario}</h2>
+<p>ID Demo: ${Math.floor(Math.random()*999999)}</p>
+<button onclick="donar('${usuario}',${robux})">
+Enviar ${robux}
+</button>
+</div>
+`;
+}
+
+function donar(usuario,robux){
+let balance=parseInt(
+document.getElementById("misRobux").innerText.replace(/,/g,'')
+);
+
+if(balance<robux){
+alert("Sin saldo");
+return;
+}
+
+balance-=robux;
+document.getElementById("misRobux").innerText=balance.toLocaleString();
+
+document.getElementById("resultado").innerHTML=`
+<div class="card">
+<h2>Demo completada</h2>
+<p>${robux} enviados a ${usuario}</p>
+</div>
+`;
+}
+</script>
+
+</body>
+  </html>
