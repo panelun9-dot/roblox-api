@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Demo Roblox</title>
+<title>Regala Robux</title>
 
 <style>
 *{
@@ -85,7 +85,13 @@ padding:40px 20px;
 }
 
 .hero h1{
-font-size:55px;
+font-size:65px;
+}
+
+.hero p{
+color:#9ca3af;
+font-size:22px;
+margin:20px 0;
 }
 
 .search-box{
@@ -106,9 +112,17 @@ margin-top:25px;
 }
 
 .card img{
-width:120px;
-height:120px;
+width:130px;
+height:130px;
 border-radius:50%;
+object-fit:cover;
+}
+
+.error{
+background:#7f1d1d;
+padding:18px;
+border-radius:20px;
+margin-top:20px;
 }
 </style>
 </head>
@@ -117,37 +131,42 @@ border-radius:50%;
 
 <div id="keyScreen">
 <div class="key-box">
-<h1>Acceso</h1>
+<h1>Acceso privado</h1>
 <input type="password" id="keyInput" placeholder="Escribe la key">
 <button onclick="verificarKey()">Entrar</button>
 <p id="errorKey"></p>
 </div>
 </div>
 
-<div class="navbar">Roblox Demo</div>
+<div class="navbar">Roblox</div>
 
 <div class="balance" id="misRobux">1,000,000</div>
 
 <section class="hero">
-<h1>Demo Roblox</h1>
+<h1>Regala Robux</h1>
+<p>¡Envía hasta un 25% más de Robux!</p>
 
 <div class="search-box">
-<input id="username" placeholder="Usuario">
+
+<input id="username" placeholder="Usuario Roblox">
 
 <select id="robux">
 <option>100</option>
 <option>500</option>
 <option>1000</option>
 <option>10000</option>
+<option>50000</option>
 </select>
 
 <button onclick="buscarUsuario()">Buscar</button>
 
 <div id="resultado"></div>
+
 </div>
 </section>
 
 <script>
+
 function verificarKey(){
 const key=document.getElementById("keyInput").value;
 
@@ -158,47 +177,89 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 }
 }
 
-function buscarUsuario(){
-const usuario=document.getElementById("username").value;
+async function buscarUsuario(){
+
+const usuario=document.getElementById("username").value.trim();
 const robux=document.getElementById("robux").value;
+const resultado=document.getElementById("resultado");
 
 if(usuario===""){
-document.getElementById("resultado").innerHTML="<p>Escribe usuario</p>";
+resultado.innerHTML='<div class="error">Escribe un usuario</div>';
 return;
 }
 
-document.getElementById("resultado").innerHTML=`
+resultado.innerHTML='<div class="error">Buscando...</div>';
+
+try{
+
+const res=await fetch(
+"https://api.allorigins.win/raw?url=https://users.roblox.com/v1/usernames/users",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+usernames:[usuario],
+excludeBannedUsers:false
+})
+}
+);
+
+const data=await res.json();
+
+if(!data.data || data.data.length===0){
+resultado.innerHTML='<div class="error">Usuario no encontrado</div>';
+return;
+}
+
+const user=data.data[0];
+
+const avatar=`https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${user.id}-150-150-Png/150/150/AvatarHeadshot/Png/noFilter`;
+
+resultado.innerHTML=`
 <div class="card">
-<h2>${usuario}</h2>
-<p>ID Demo: ${Math.floor(Math.random()*999999)}</p>
-<button onclick="donar('${usuario}',${robux})">
-Enviar ${robux}
+<img src="${avatar}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png'">
+<h2>${user.name}</h2>
+<p>${user.displayName}</p>
+<p>ID: ${user.id}</p>
+<button onclick="donar('${user.name}',${robux})">
+Donar ${robux}
 </button>
 </div>
 `;
+
+}catch(error){
+resultado.innerHTML='<div class="error">Error buscando usuario</div>';
+console.log(error);
+}
 }
 
 function donar(usuario,robux){
+
 let balance=parseInt(
 document.getElementById("misRobux").innerText.replace(/,/g,'')
 );
 
 if(balance<robux){
-alert("Sin saldo");
+alert("No tienes suficientes Robux");
 return;
 }
 
 balance-=robux;
+
 document.getElementById("misRobux").innerText=balance.toLocaleString();
 
 document.getElementById("resultado").innerHTML=`
 <div class="card">
-<h2>Demo completada</h2>
-<p>${robux} enviados a ${usuario}</p>
+<h2>¡Donación enviada!</h2>
+<p>${robux} Robux enviados a ${usuario}</p>
+<button onclick="location.reload()">Volver</button>
 </div>
 `;
 }
+
 </script>
 
 </body>
-  </html>
+</html>
