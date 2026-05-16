@@ -6,56 +6,51 @@
 <title>Regala Robux</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 
 body{
-background:#1f1f2e;
+background:#111827;
 color:white;
 text-align:center;
 }
 
 #keyScreen{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#0a0a0f;
+top:0;left:0;
+width:100%;height:100%;
+background:#000;
 display:flex;
 justify-content:center;
 align-items:center;
 z-index:9999;
 }
 
-.key-box{
-background:#111827;
-padding:35px;
+.key-box,.search-box,.card{
+background:#1f2937;
+padding:30px;
 border-radius:25px;
 width:90%;
-max-width:400px;
+max-width:500px;
+margin:auto;
+box-shadow:0 0 20px rgba(0,0,0,.5);
 }
 
 input,select,button{
 width:90%;
 padding:18px;
-margin:10px 0;
+margin:10px;
 border:none;
 border-radius:18px;
-font-size:20px;
+font-size:18px;
 }
 
 input,select{
-background:#444;
+background:#374151;
 color:white;
 }
 
 button{
-background:#16a34a;
+background:#22c55e;
 color:white;
 font-weight:bold;
 cursor:pointer;
@@ -63,20 +58,15 @@ cursor:pointer;
 
 .navbar{
 background:black;
-padding:18px;
+padding:20px;
 font-size:28px;
 font-weight:bold;
 }
 
 .balance{
-margin:25px auto;
-background:#0b0b12;
-width:80%;
-max-width:500px;
-padding:20px;
-border-radius:20px;
 font-size:42px;
 color:#22c55e;
+margin:20px;
 font-weight:bold;
 }
 
@@ -84,54 +74,39 @@ font-weight:bold;
 padding:40px 20px;
 }
 
-.hero h1{
-font-size:65px;
-}
-
-.hero p{
-color:#9ca3af;
-font-size:22px;
-margin:20px 0;
-}
-
-.search-box{
-background:#050510;
-padding:35px;
-border-radius:30px;
-width:90%;
-max-width:650px;
-margin:auto;
-}
-
-.card{
-background:white;
-color:black;
-padding:25px;
-border-radius:25px;
-margin-top:25px;
-}
-
 .card img{
-width:130px;
-height:130px;
+width:140px;
+height:140px;
 border-radius:50%;
-object-fit:cover;
+margin-bottom:15px;
 }
 
-.error{
-background:#7f1d1d;
-padding:18px;
-border-radius:20px;
-margin-top:20px;
+.loader{
+width:50px;
+height:50px;
+border:5px solid #333;
+border-top:5px solid #22c55e;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:20px auto;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+
+.success{
+color:#22c55e;
+font-size:28px;
+font-weight:bold;
 }
 </style>
 </head>
-
 <body>
 
 <div id="keyScreen">
 <div class="key-box">
-<h1>Acceso privado</h1>
+<h1>Acceso Privado</h1>
 <input type="password" id="keyInput" placeholder="Escribe la key">
 <button onclick="verificarKey()">Entrar</button>
 <p id="errorKey"></p>
@@ -143,7 +118,7 @@ margin-top:20px;
 
 <section class="hero">
 <h1>Regala Robux</h1>
-<p>¡Envía hasta un 25% más de Robux!</p>
+<p>Envía Robux fácilmente</p>
 
 <div class="search-box">
 <input id="username" placeholder="Usuario Roblox">
@@ -163,6 +138,7 @@ margin-top:20px;
 </section>
 
 <script>
+
 function verificarKey(){
 const key=document.getElementById("keyInput").value;
 
@@ -173,82 +149,63 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 }
 }
 
-async function buscarUsuario(){
+function buscarUsuario(){
+
 const usuario=document.getElementById("username").value.trim();
 const robux=document.getElementById("robux").value;
 const resultado=document.getElementById("resultado");
 
 if(usuario===""){
-resultado.innerHTML='<div class="error">Escribe un usuario</div>';
+resultado.innerHTML="<p>Escribe usuario</p>";
 return;
 }
 
-resultado.innerHTML='<div class="error">Buscando...</div>';
+resultado.innerHTML='<div class="loader"></div><p>Buscando usuario...</p>';
 
-try{
-const res=await fetch(
-"https://corsproxy.io/?https://users.roblox.com/v1/usernames/users",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-usernames:[usuario],
-excludeBannedUsers:false
-})
-}
-);
+setTimeout(()=>{
 
-const data=await res.json();
-
-if(!data.data || !data.data.length){
-resultado.innerHTML='<div class="error">Usuario no encontrado</div>';
-return;
-}
-
-const user=data.data[0];
-
-const avatar=`https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=420&height=420&format=png`;
+const avatar=`https://robohash.org/${usuario}.png?size=200x200`;
 
 resultado.innerHTML=`
 <div class="card">
 <img src="${avatar}">
-<h2>${user.name}</h2>
-<p>${user.displayName}</p>
-<p>ID: ${user.id}</p>
-<button onclick="donar('${user.name}',${robux})">
+<h2>${usuario}</h2>
+<p>ID: ${Math.floor(Math.random()*99999999)}</p>
+<button onclick="donar('${usuario}',${robux})">
 Donar ${robux}
 </button>
 </div>
 `;
 
-}catch(error){
-resultado.innerHTML='<div class="error">Error buscando usuario</div>';
-}
+},2000);
 }
 
 function donar(usuario,robux){
+
+const resultado=document.getElementById("resultado");
+
+resultado.innerHTML='<div class="loader"></div><p>Procesando donación...</p>';
+
+setTimeout(()=>{
+
 let balance=parseInt(
 document.getElementById("misRobux").innerText.replace(/,/g,'')
 );
 
-if(balance<robux){
-alert("No tienes suficientes Robux");
-return;
-}
-
 balance-=robux;
 document.getElementById("misRobux").innerText=balance.toLocaleString();
 
-document.getElementById("resultado").innerHTML=`
+resultado.innerHTML=`
 <div class="card">
-<h2>¡Donación enviada!</h2>
+<h2 class="success">Donación completada</h2>
 <p>${robux} Robux enviados a ${usuario}</p>
 <button onclick="location.reload()">Volver</button>
 </div>
 `;
+
+},3000);
 }
+
 </script>
 
 </body>
