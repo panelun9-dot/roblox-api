@@ -8,9 +8,9 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
-/* KEY */
 #keyScreen{
-position:fixed;top:0;left:0;width:100%;height:100%;
+position:fixed;top:0;left:0;
+width:100%;height:100%;
 background:#000;
 display:flex;
 justify-content:center;
@@ -56,7 +56,6 @@ color:white;
 text-align:center;
 }
 
-/* TOP */
 .topbar{
 background:white;
 padding:14px;
@@ -94,7 +93,6 @@ width:40px;height:40px;border-radius:50%;
 .session-text{font-size:12px;color:#22c55e;}
 .session-user{font-size:14px;font-weight:bold;}
 
-/* CONTENT */
 h1{margin-top:20px;font-size:40px;}
 p{color:#cbd5e1;margin-top:5px;}
 
@@ -125,7 +123,6 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* SPINNER */
 .spinner{
 width:45px;
 height:45px;
@@ -150,6 +147,20 @@ border-radius:15px;
 width:120px;
 height:120px;
 border-radius:50%;
+}
+
+/* CHECKOUT */
+.checkout-box{
+background:#f3f4f6;
+color:#111;
+padding:15px;
+border-radius:12px;
+margin-top:10px;
+}
+
+.checkout-email{
+font-size:13px;
+color:#555;
 }
 
 /* PRECIOS */
@@ -192,7 +203,6 @@ margin-top:12px;
 
 <body>
 
-<!-- KEY -->
 <div id="keyScreen">
 <div class="key-box">
 <h2>ACCESO</h2>
@@ -202,7 +212,6 @@ margin-top:12px;
 </div>
 </div>
 
-<!-- MAIN -->
 <div id="main" style="display:none;">
 
 <div class="topbar">
@@ -241,7 +250,6 @@ margin-top:12px;
 
 <div id="resultado"></div>
 
-<!-- PRECIOS -->
 <div class="prices">
 <div class="price-card"><h3>40 Robux</h3><p>US$0.49</p></div>
 <div class="price-card"><h3>80 Robux</h3><p>US$0.99</p></div>
@@ -258,7 +266,6 @@ margin-top:12px;
 
 </div>
 
-<!-- TEXTO FINAL -->
 <div class="info-section">
 
 <h2>Regala Robux</h2>
@@ -280,7 +287,6 @@ margin-top:12px;
 
 <script>
 
-/* KEY */
 function checkKey(){
 if(document.getElementById("keyInput").value==="VICTOR9009"){
 document.getElementById("keyScreen").style.display="none";
@@ -290,7 +296,6 @@ document.getElementById("errorKey").innerText="Key incorrecta";
 }
 }
 
-/* BUSCAR */
 function buscar(){
 
 let u=document.getElementById("username").value;
@@ -317,14 +322,23 @@ document.getElementById("resultado").innerHTML=`
 
 }
 
-/* DONAR */
 function donar(user,id){
 
 let robux=document.getElementById("robux").value;
 
 document.getElementById("resultado").innerHTML=`
+<div class="card">
+<h2>Checkout (simulación)</h2>
+
+<div class="checkout-box">
+<p><b>Cuenta de pago:</b></p>
+<p class="checkout-email">Pu**@****.com</p>
+<p>Verificando método...</p>
+</div>
+
 <div class="spinner"></div>
-<p>Procesando donación...</p>
+<p>Procesando transacción...</p>
+</div>
 `;
 
 setTimeout(()=>{
@@ -337,11 +351,11 @@ document.getElementById("resultado").innerHTML=`
 </div>
 `;
 
-},1800);
+},2500);
 
 }
 
 </script>
 
 </body>
-</html>
+  </html>
