@@ -11,44 +11,66 @@
 #keyScreen{
 position:fixed;top:0;left:0;
 width:100%;height:100%;
-background:#000;
+background:radial-gradient(circle at top,#0b1220,#000);
 display:flex;
 justify-content:center;
 align-items:center;
 z-index:9999;
+backdrop-filter: blur(10px);
 }
 
 .key-box{
-background:#1f2937;
-padding:30px;
-border-radius:20px;
+background:rgba(31,41,55,0.9);
+padding:35px;
+border-radius:22px;
 width:90%;
-max-width:400px;
+max-width:420px;
 text-align:center;
+box-shadow:0 0 30px rgba(34,197,94,0.25);
+border:1px solid rgba(34,197,94,0.4);
+animation:popIn 0.5s ease;
+}
+
+@keyframes popIn{
+from{transform:scale(0.85);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.key-box h2{
+font-size:28px;
+font-weight:900;
+color:#22c55e;
+letter-spacing:2px;
+margin-bottom:10px;
 }
 
 .key-box input{
 width:100%;
-padding:12px;
-margin:10px 0;
+padding:14px;
+margin:12px 0;
 border:none;
-border-radius:10px;
-background:#374151;
+border-radius:12px;
+background:#111827;
 color:white;
+outline:none;
 }
 
 .key-box button{
 width:100%;
-padding:12px;
+padding:14px;
 border:none;
-border-radius:10px;
-background:#22c55e;
+border-radius:12px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
 color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
-#errorKey{color:red;margin-top:10px;}
+#errorKey{
+color:#ff4d4d;
+margin-top:10px;
+font-weight:bold;
+}
 
 body{
 background:radial-gradient(circle,#1f2937,#0b0f19);
@@ -205,7 +227,7 @@ margin-top:12px;
 
 <div id="keyScreen">
 <div class="key-box">
-<h2>ACCESO</h2>
+<h2>ACCESO PRIVADO</h2>
 <input id="keyInput" placeholder="Escribe la key">
 <button onclick="checkKey()">Entrar</button>
 <p id="errorKey"></p>
@@ -283,8 +305,6 @@ margin-top:12px;
 
 </div>
 
-</div>
-
 <script>
 
 function checkKey(){
@@ -328,7 +348,7 @@ let robux=document.getElementById("robux").value;
 
 document.getElementById("resultado").innerHTML=`
 <div class="card">
-<h2>Checkout (simulación)</h2>
+<h2>Cargando compra...</h2>
 
 <div class="checkout-box">
 <p><b>Cuenta de pago:</b></p>
@@ -358,4 +378,4 @@ document.getElementById("resultado").innerHTML=`
 </script>
 
 </body>
-  </html>
+</html>
