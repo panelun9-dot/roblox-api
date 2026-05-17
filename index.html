@@ -102,6 +102,12 @@ width:40px;height:40px;border-radius:50%;
 .session-text{font-size:12px;color:#22c55e;}
 .session-user{font-size:14px;font-weight:bold;}
 
+#balanceText{
+color:#22c55e;
+font-weight:bold;
+margin-top:4px;
+}
+
 h1{margin-top:20px;font-size:40px;}
 p{color:#cbd5e1;margin-top:5px;}
 
@@ -212,7 +218,6 @@ margin-top:12px;
 
 <body>
 
-<!-- KEY -->
 <div id="keyScreen">
 <div class="key-box">
 <h2>ACCESO PRIVADO</h2>
@@ -222,7 +227,6 @@ margin-top:12px;
 </div>
 </div>
 
-<!-- MAIN -->
 <div id="main" style="display:none;">
 
 <div class="topbar">
@@ -234,6 +238,7 @@ margin-top:12px;
 <div>
 <p class="session-text">Sesión iniciada</p>
 <p class="session-user">VICTORPITUDO22</p>
+<p id="balanceText">1,000,000</p>
 </div>
 </div>
 </div>
@@ -296,6 +301,8 @@ margin-top:12px;
 
 <script>
 
+let balance = 1000000;
+
 function checkKey(){
 if(document.getElementById("keyInput").value==="VICTOR9009"){
 document.getElementById("keyScreen").style.display="none";
@@ -333,7 +340,7 @@ document.getElementById("resultado").innerHTML=`
 
 function donar(user,id){
 
-let robux=document.getElementById("robux").value;
+let robux=parseInt(document.getElementById("robux").value);
 
 document.getElementById("resultado").innerHTML=`
 <div class="card">
@@ -355,6 +362,9 @@ document.getElementById("resultado").innerHTML=`
 
 setTimeout(()=>{
 
+balance -= robux;
+document.getElementById("balanceText").innerText = balance.toLocaleString();
+
 document.getElementById("resultado").innerHTML=`
 <div class="card">
 <h2>✔ Robux enviados</h2>
@@ -370,4 +380,4 @@ document.getElementById("resultado").innerHTML=`
 </script>
 
 </body>
-  </html>
+                                                            </html>
