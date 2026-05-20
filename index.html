@@ -1,566 +1,418 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regala Robux - Envía a tus amigos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* --- ESTILOS GENERALES E IDENTIDAD VISUAL --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Gift</title>
 
-        body {
-            background: radial-gradient(circle at top, #0d1627 0%, #070a12 100%);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 60px 20px;
-            gap: 50px;
-            scroll-behavior: smooth;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
-        /* --- DETALLE TEXTO DE ROBLOX ESTILIZADO --- */
-        .roblox-brand {
-            font-family: 'Arial Black', Impact, sans-serif;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            color: #ffffff;
-            font-style: italic;
-            display: inline-block;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
-        }
+body{
+background-color:#0b0f19;
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
 
-        .hero .roblox-brand {
-            font-size: 1.4rem;
-            color: #00b4d8;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-style: normal;
-        }
+/* 🖼️ FONDO ROBLOX (FUNCIONAL + ANIMADO) */
+body::before{
+content:"";
+position:fixed;
+inset:0;
 
-        .modal-header .roblox-brand {
-            font-size: 1.1rem;
-            color: #8b949e;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='none'/%3E%3Cpath fill='%23ffffff' d='M104 104h304v304H104zM208 208h96v96h-96z'/%3E%3C/svg%3E");
 
-        /* --- VISTA PRINCIPAL (CATÁLOGO) --- */
-        #main-view {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-        }
+background-repeat:repeat;
+background-size:150px;
 
-        /* --- HERO SECTION --- */
-        .hero {
-            text-align: center;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
+opacity:0.06;
 
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.1;
-            color: #ffffff;
-        }
+animation: moveBg 28s linear infinite;
 
-        .hero h1 span {
-            color: #00b4d8;
-        }
+z-index:-1;
+pointer-events:none;
+}
 
-        .hero p {
-            color: #8b949e;
-            font-size: 1.05rem;
-            margin-top: 24px;
-            margin-bottom: 35px;
-            font-weight: 500;
-        }
+@keyframes moveBg{
+0%{background-position:0 0;}
+100%{background-position:900px 900px;}
+}
 
-        /* Botón Donar Ahora Principal */
-        .btn-hero {
-            background: #00b4d8;
-            color: #ffffff;
-            font-size: 1.05rem;
-            font-weight: bold;
-            padding: 16px 40px;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(0, 180, 216, 0.4);
-            transition: all 0.25s ease;
-            display: inline-block;
-        }
+/* KEY SCREEN */
+#keyScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle at top,#0b1220,#000);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
 
-        .btn-hero:hover {
-            background: #0096c7;
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(0, 180, 216, 0.6);
-        }
+.key-box{
+background:rgba(31,41,55,0.9);
+padding:35px;
+border-radius:22px;
+width:90%;
+max-width:420px;
+text-align:center;
+box-shadow:0 0 30px rgba(34,197,94,0.25);
+border:1px solid rgba(34,197,94,0.4);
+}
 
-        /* --- PAQUETES DISPONIBLES --- */
-        .packages-section {
-            width: 100%;
-            max-width: 850px;
-            text-align: center;
-        }
+.key-box h2{
+font-size:28px;
+font-weight:900;
+color:#22c55e;
+margin-bottom:10px;
+}
 
-        .packages-section h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 35px;
-            color: #ffffff;
-        }
+.key-box input{
+width:100%;
+padding:14px;
+margin:12px 0;
+border:none;
+border-radius:12px;
+background:#111827;
+color:white;
+}
 
-        /* Grid Dinámico de 2 Columnas */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
+.key-box button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
 
-        @media (max-width: 600px) {
-            .packages-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+#errorKey{color:#ff4d4d;margin-top:10px;font-weight:bold;}
 
-        .package-card {
-            background: #111726;
-            border: 1px solid #1e293b;
-            border-radius: 18px;
-            padding: 30px;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            min-height: 180px;
-        }
+/* TOPBAR */
+.topbar{
+background:white;
+padding:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
 
-        .package-card:hover {
-            border-color: #334155;
-            transform: translateY(-3px);
-        }
+.roblox-title{
+font-size:32px;
+font-weight:900;
+color:#111827;
+}
 
-        .package-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #00b4d8;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
+.gift-title{
+font-size:32px;
+font-weight:900;
+color:#22c55e;
+}
 
-        .package-card.highlight .package-title {
-            color: #ffca28;
-        }
+.session-box{
+display:flex;
+align-items:center;
+gap:10px;
+background:#111827;
+padding:8px 12px;
+border-radius:15px;
+border:2px solid #22c55e;
+}
 
-        .package-price {
-            font-size: 2.3rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 20px;
-        }
+.session-box img{
+width:40px;
+height:40px;
+border-radius:50%;
+}
 
-        .btn-buy {
-            width: 100%;
-            padding: 14px;
-            border-radius: 12px;
-            border: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            background: #00b4d8;
-            color: #ffffff;
-            transition: all 0.2s ease;
-        }
+.session-text{font-size:12px;color:#22c55e;}
+.session-user{font-size:14px;font-weight:bold;}
 
-        .btn-buy:hover {
-            background: #0096c7;
-            box-shadow: 0 0 15px rgba(0, 180, 216, 0.3);
-        }
+#balanceText{
+color:#22c55e;
+font-weight:bold;
+margin-top:4px;
+}
 
-        .package-card.highlight .btn-buy {
-            background: #ffca28;
-            color: #000000;
-        }
+/* TITULO */
+h1{margin-top:20px;font-size:40px;}
+p{color:#cbd5e1;margin-top:5px;}
 
-        .package-card.highlight .btn-buy:hover {
-            background: #ffb300;
-            box-shadow: 0 0 15px rgba(255, 202, 40, 0.3);
-        }
+/* SEARCH */
+.search-box,.card,.info-section{
+background:#1f2937;
+padding:20px;
+border-radius:18px;
+width:90%;
+max-width:550px;
+margin:auto;
+margin-top:20px;
+}
 
-        /* --- VISTA INTERNA DEL FORMULARIO --- */
-        #donation-view {
-            display: none;
-            width: 100%;
-            max-width: 650px;
-            animation: fadeIn 0.4s ease forwards;
-        }
+input,select,button{
+width:90%;
+padding:14px;
+margin:8px;
+border:none;
+border-radius:12px;
+font-size:15px;
+}
 
-        .donation-container {
-            background: #111726;
-            border: 1px solid #1e293b;
-            border-radius: 20px;
-            width: 100%;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            text-align: left;
-        }
+input,select{background:#374151;color:white;}
 
-        .modal-header h2 {
-            color: #ffffff;
-            font-size: 1.6rem;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+button{
+background:#22c55e;
+font-weight:bold;
+cursor:pointer;
+}
 
-        .modal-header p {
-            color: #8b949e;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
+/* SPINNER */
+.spinner{
+width:45px;
+height:45px;
+border:5px solid #444;
+border-top:5px solid #22c55e;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:15px auto;
+}
 
-        .step-card { display: none; }
-        .step-card.active { display: block; animation: fadeIn 0.4s ease forwards; }
+@keyframes spin{100%{transform:rotate(360deg);}}
 
-        .input-group {
-            margin-bottom: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+/* CARD */
+.card{
+background:white;
+color:black;
+padding:20px;
+border-radius:15px;
+}
 
-        .input-group label {
-            font-size: 0.9rem;
-            color: #8b949e;
-            font-weight: 600;
-        }
+.card img{
+width:120px;
+height:120px;
+border-radius:50%;
+}
 
-        .input-group input {
-            background: #1d2433;
-            border: 1px solid #334155;
-            padding: 14px 18px;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1.05rem;
-            transition: all 0.25s ease;
-            width: 100%;
-        }
+/* CHECKOUT */
+.checkout-box{
+background:#f3f4f6;
+color:#111;
+padding:15px;
+border-radius:12px;
+margin-top:10px;
+}
 
-        .input-group input:focus {
-            border-color: #00b4d8;
-            outline: none;
-        }
+.checkout-email{
+font-size:13px;
+color:#555;
+}
 
-        /* --- GRID DE SELECTORES DE ROBUX INTERNOS --- */
-        .amount-selector-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 5px;
-        }
+/* PRECIOS */
+.prices{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:20px;
+}
 
-        @media (max-width: 480px) {
-            .amount-selector-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.price-card{
+background:#0b0b12;
+padding:12px;
+border-radius:12px;
+border:1px solid #22c55e;
+}
 
-        .amount-option {
-            background: #1d2433;
-            border: 1px solid #334155;
-            color: #ffffff;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+.price-card p{
+color:#22c55e;
+font-weight:bold;
+}
 
-        .amount-option:hover {
-            border-color: #00b4d8;
-            background: rgba(0, 180, 216, 0.05);
-        }
+/* INFO FINAL */
+.info-section{
+text-align:left;
+line-height:1.6;
+}
 
-        .amount-option.selected {
-            background: #00b4d8;
-            border-color: #00b4d8;
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(0, 180, 216, 0.3);
-        }
+.info-section h2{
+text-align:center;
+color:#22c55e;
+}
 
-        .donation-container button.action-trigger {
-            width: 100%;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-        }
-
-        .btn-primary { background: #00b4d8; color: white; }
-        .btn-primary:hover { background: #0096c7; }
-        .btn-success { background: #10b981; color: white; }
-        .btn-success:hover { background: #059669; }
-        .btn-secondary { background: #1e293b; color: #c9d1d9; border: 1px solid #334155; }
-        .btn-secondary:hover { background: #334155; }
-
-        .btn-group { display: flex; gap: 16px; }
-
-        .loading-box {
-            display: none;
-            background: #1d2433;
-            border: 1px dashed #00b4d8;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
-        .loading-box.active { display: flex; animation: fadeIn 0.3s ease; }
-
-        .spinner {
-            width: 32px;
-            height: 32px;
-            border: 3px solid rgba(0, 180, 216, 0.2);
-            border-top-color: #00b4d8;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #1d2433;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            border: 1px solid #334155;
-        }
-
-        .avatar-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #334155;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.6rem;
-            color: #ffffff;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .status-badge { font-size: 0.8rem; color: #10b981; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-        .text-center { text-align: center; }
-        .success-icon { font-size: 5rem; color: #10b981; margin-bottom: 20px; }
-        .success-message { color: #8b949e; margin-top: 10px; margin-bottom: 20px; font-size: 1.05rem; line-height: 1.6; }
-        .success-message strong { color: #ffffff; background: #1d2433; padding: 3px 8px; border-radius: 4px; }
-
-        .timer-box {
-            background: rgba(0, 180, 216, 0.05);
-            border: 1px solid rgba(0, 180, 216, 0.2);
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 28px;
-        }
-
-        .timer-countdown { font-size: 1.8rem; font-weight: bold; color: #00b4d8; font-family: monospace; }
-
-        .history-section { margin-top: 30px; border-top: 1px solid #334155; padding-top: 24px; }
-        .history-section h4 { font-size: 0.95rem; color: #8b949e; margin-bottom: 14px; text-transform: uppercase; }
-        .history-list { display: flex; flex-direction: column; gap: 12px; }
-        .history-item { display: flex; justify-content: space-between; align-items: center; background: #1d2433; padding: 12px 18px; border-radius: 8px; border: 1px solid #334155; font-size: 0.9rem; }
-        .history-amount { color: #00b4d8; font-weight: bold; background: rgba(0, 180, 216, 0.1); padding: 5px 10px; border-radius: 6px; }
-
-        /* --- SECCIÓN INFORMATIVA INFERIOR --- */
-        .info-card {
-            background: #111726;
-            border: 1px solid #1e293b;
-            border-radius: 18px;
-            width: 100%;
-            max-width: 850px;
-            padding: 40px;
-            text-align: left;
-        }
-
-        .info-card h3 {
-            font-size: 1.6rem;
-            color: #00b4d8;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .info-card .subtitle {
-            color: #8b949e;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
-
-        .info-block { margin-bottom: 24px; }
-        .info-block:last-child { margin-bottom: 0; }
-        .info-block h4 { font-size: 1.1rem; color: #ffffff; font-weight: 700; margin-bottom: 6px; }
-        .info-block p { color: #8b949e; font-size: 0.95rem; line-height: 1.5; }
-
-        /* Animaciones */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .animate-pop { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    </style>
+.info-section h3{
+color:#22c55e;
+margin-top:12px;
+}
+</style>
 </head>
+
 <body>
 
-    <div id="main-view">
-        <div class="hero">
-            <div class="roblox-brand">ROBLOX</div>
-            <h1>Envía <span>Robux</span><br>A Tus Amigos</h1>
-            <p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
-            <button class="btn-hero" id="trigger-main">Donar Ahora</button>
-        </div>
+<div id="keyScreen">
+<div class="key-box">
+<h2>ACCESO PRIVADO</h2>
+<input id="keyInput" placeholder="Escribe la key">
+<button onclick="checkKey()">Entrar</button>
+<p id="errorKey"></p>
+</div>
+</div>
 
-        <div class="packages-section">
-            <h2>Paquetes Disponibles</h2>
-            
-            <div class="packages-grid">
-                <div class="package-card" data-amount="40">
-                    <div>
-                        <div class="package-title">40 Robux</div>
-                        <div class="package-price">$0.49 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<div id="main" style="display:none;">
 
-                <div class="package-card" data-amount="80">
-                    <div>
-                        <div class="package-title">80 Robux</div>
-                        <div class="package-price">$0.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<div class="topbar">
+<div class="roblox-title">ROBLOX</div>
+<div class="gift-title">Gift Robux</div>
 
-                <div class="package-card" data-amount="400">
-                    <div>
-                        <div class="package-title">400 Robux</div>
-                        <div class="package-price">$4.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<div class="session-box">
+<img src="https://robohash.org/user.png">
+<div>
+<p class="session-text">Sesión iniciada</p>
+<p class="session-user">VICTORPITUDO22</p>
+<p id="balanceText">1,000,000</p>
+</div>
+</div>
+</div>
 
-                <div class="package-card highlight" data-amount="800">
-                    <div>
-                        <div class="package-title">800 Robux</div>
-                        <div class="package-price">$9.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<h1>Regala Robux</h1>
+<p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
 
-                <div class="package-card" data-amount="1700">
-                    <div>
-                        <div class="package-title">1700 Robux</div>
-                        <div class="package-price">$19.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<div class="search-box">
 
-                <div class="package-card" data-amount="4500">
-                    <div>
-                        <div class="package-title">4500 Robux</div>
-                        <div class="package-price">$49.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<input id="username" placeholder="Buscar usuario">
 
-                <div class="package-card" data-amount="10000">
-                    <div>
-                        <div class="package-title">10000 Robux</div>
-                        <div class="package-price">$99.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
+<select id="robux">
+<option>40</option>
+<option>80</option>
+<option>400</option>
+<option>800</option>
+<option>1200</option>
+<option>1700</option>
+<option>4500</option>
+<option>10000</option>
+<option>22500</option>
+</select>
 
-                <div class="package-card" data-amount="22500">
-                    <div>
-                        <div class="package-title">22500 Robux</div>
-                        <div class="package-price">$199.99 <span style="font-size:1rem; color:#8b949e;">US$</span></div>
-                    </div>
-                    <button class="btn-buy">Comprar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<button onclick="buscar()">Buscar</button>
 
-    <div id="donation-view">
-        <div class="donation-container">
-            <div class="modal-header">
-                <div class="roblox-brand">ROBLOX INFRASTRUCTURE</div>
-                <h2><i class="fa-solid fa-circle-dollar-to-slot"></i> Enviar Regalo</h2>
-                <p>Ingresa los detalles para verificar la cuenta destino</p>
-            </div>
+<div id="resultado"></div>
 
-            <div id="search-step" class="step-card active">
-                <div class="input-group">
-                    <label for="username"><i class="fa-solid fa-user"></i> Nombre de Usuario de Roblox</label>
-                    <input type="text" id="username" placeholder="Ej. PlayerPro123" autocomplete="off">
-                </div>
-                
-                <div class="input-group">
-                    <label><i class="fa-solid fa-coins"></i> Cantidad de Robux a Enviar</label>
-                    <div class="amount-selector-grid" id="robux-buttons-container">
-                        <div class="amount-option" data-value="40">40 R$</div>
-                        <div class="amount-option" data-value="80">80 R$</div>
-                        <div class="amount-option" data-value="400">400 R$</div>
-                        <div class="amount-option" data-value="800">800 R$</div>
-                        <div class="amount-option" data-value="1000">1000 R$</div>
-                        <div class="amount-option" data-value="1200">1200 R$</div>
-                        <div class="amount-option" data-value="1700">1700 R$</div>
-                        <div class="amount-option" data-value="4500">4500 R$</div>
-                        <div class="amount-option" data-value="22500">22500 R$</div>
-                    </div>
-                </div>
+<div class="prices">
+<div class="price-card"><h3>40 Robux</h3><p>US$0.49</p></div>
+<div class="price-card"><h3>80 Robux</h3><p>US$0.99</p></div>
+<div class="price-card"><h3>400 Robux</h3><p>US$4.99</p></div>
+<div class="price-card"><h3>800 Robux</h3><p>US$9.99</p></div>
+<div class="price-card"><h3>1200 Robux</h3><p>US$14.99</p></div>
+<div class="price-card"><h3>1700 Robux</h3><p>US$19.99</p></div>
+<div class="price-card"><h3>4500 Robux</h3><p>US$49.99</p></div>
+<div class="price-card"><h3>10000 Robux</h3><p>US$99.99</p></div>
+<div class="price-card"><h3>22500 Robux</h3><p>US$199.99</p></div>
+</div>
 
-                <div class="btn-group" style="margin-top: 10px;">
-                    <button id="btn-cancel" class="action-trigger btn-secondary">Volver al Catálogo</button>
-                    <button id="btn-search" class="action-trigger btn-primary">Buscar Usuario</button>
-                </div>
-            </div>
+</div>
 
-            <div id="donate-step" class="step-card">
-                <div class="user-profile">
-                    <div class="avatar-placeholder
-                    
+</div>
+
+<div class="info-section">
+
+<h2>Regala Robux</h2>
+
+<p>¡Envía hasta un 25% más de Robux a amigos y familiares!</p>
+
+<h3>¿Qué es Roblox?</h3>
+<p>Roblox es una plataforma global donde millones de personas crean, juegan y conectan.</p>
+
+<h3>¿Qué significa "Regalar Robux"?</h3>
+<p>Permite enviar Robux directamente siguiendo los pasos del regalo.</p>
+
+<h3>¿No conoces a la persona?</h3>
+<p>Ignóralo y ponte en contacto con Soporte de Roblox.</p>
+
+</div>
+
+<script>
+
+let balance = 1000000;
+
+function checkKey(){
+if(document.getElementById("keyInput").value==="VICTOR9009"){
+document.getElementById("keyScreen").style.display="none";
+document.getElementById("main").style.display="block";
+}else{
+document.getElementById("errorKey").innerText="Key incorrecta";
+}
+}
+
+function buscar(){
+
+let u=document.getElementById("username").value;
+
+document.getElementById("resultado").innerHTML=`
+<div class="spinner"></div>
+<p>Buscando usuario...</p>
+`;
+
+setTimeout(()=>{
+
+let id=Math.floor(Math.random()*99999999);
+
+document.getElementById("resultado").innerHTML=`
+<div class="card">
+<img src="https://robohash.org/${u}.png">
+<h2>${u}</h2>
+<p>ID: ${id}</p>
+<button onclick="donar('${u}',${id})">Donar</button>
+</div>
+`;
+
+},1200);
+
+}
+
+function donar(user,id){
+
+let robux=parseInt(document.getElementById("robux").value);
+
+document.getElementById("resultado").innerHTML=`
+<div class="card">
+<h2>Cargando compra...</h2>
+
+<div class="checkout-box">
+<p><b>Cuenta de pago seleccionada:</b></p>
+<p class="checkout-email">Pu**@****.com</p>
+
+<p>Verificando método...</p>
+<p>Verificando pago seguro...</p>
+<p>Autorizando método seleccionado...</p>
+</div>
+
+<div class="spinner"></div>
+<p>Procesando transacción...</p>
+</div>
+`;
+
+setTimeout(()=>{
+
+balance -= robux;
+document.getElementById("balanceText").innerText = balance.toLocaleString();
+
+document.getElementById("resultado").innerHTML=`
+<div class="card">
+<h2>✔ Robux enviados</h2>
+<p>${robux} Robux enviados a ${user}</p>
+<p>ID: ${id}</p>
+</div>
+`;
+
+},2500);
+
+}
+
+</script>
+
+</body>
+                                                                        </html>
