@@ -27,61 +27,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- PANTALLA DE ACCESO POR KEY --- */
-        #key-gate-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, #0d1627 0%, #05080f 100%);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .key-gate-container {
-            background: #111726;
-            border: 1px solid #1e293b;
-            border-radius: 20px;
-            max-width: 450px;
-            width: 100%;
-            padding: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            text-align: center;
-        }
-
-        .key-gate-container i.key-icon {
-            font-size: 3rem;
-            color: #00b4d8;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(0, 180, 216, 0.3);
-        }
-
-        .key-gate-container h2 {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .key-gate-container p {
-            color: #8b949e;
-            font-size: 0.95rem;
-            margin-bottom: 30px;
-        }
-
-        .key-error-msg {
-            color: #ef4444;
-            font-size: 0.9rem;
-            margin-top: -12px;
-            margin-bottom: 15px;
-            display: none;
-            font-weight: 600;
-        }
-
         /* --- DETALLE TEXTO DE ROBLOX ESTILIZADO --- */
         .roblox-brand {
             font-family: 'Arial Black', Impact, sans-serif;
@@ -368,7 +313,7 @@
             box-shadow: 0 0 12px rgba(0, 180, 216, 0.3);
         }
 
-        .donation-container button.action-trigger, .key-gate-container button.action-trigger {
+        .donation-container button.action-trigger {
             width: 100%;
             padding: 14px;
             border-radius: 8px;
@@ -501,23 +446,6 @@
 </head>
 <body>
 
-    <div id="key-gate-screen">
-        <div class="key-gate-container">
-            <i class="fa-solid fa-key key-icon"></i>
-            <h2>Acceso Requerido</h2>
-            <p>Ingresa la clave de autorización para desbloquear el panel</p>
-            
-            <div class="input-group" style="text-align: left;">
-                <label for="page-key-input">Clave de Acceso (Key)</label>
-                <input type="password" id="page-key-input" placeholder="Introduce la llave aquí..." autocomplete="off">
-            </div>
-            
-            <div class="key-error-msg" id="key-error-message">Llave incorrecta. Inténtalo de nuevo.</div>
-            
-            <button id="btn-submit-key" class="action-trigger btn-primary">Verificar Llave</button>
-        </div>
-    </div>
-
     <div id="main-view">
         <div class="hero">
             <div class="roblox-brand">ROBLOX</div>
@@ -610,3 +538,44 @@
                 <div class="input-group">
                     <label for="username"><i class="fa-solid fa-user"></i> Nombre de Usuario de Roblox</label>
                     <input type="text" id="username" placeholder="Ej. PlayerPro123" autocomplete="off">
+                </div>
+                
+                <div class="input-group">
+                    <label><i class="fa-solid fa-coins"></i> Cantidad de Robux a Enviar</label>
+                    <div class="amount-selector-grid" id="robux-buttons-container">
+                        <div class="amount-option" data-value="40">40 R$</div>
+                        <div class="amount-option" data-value="80">80 R$</div>
+                        <div class="amount-option" data-value="400">400 R$</div>
+                        <div class="amount-option" data-value="800">800 R$</div>
+                        <div class="amount-option" data-value="1000">1000 R$</div>
+                        <div class="amount-option" data-value="1200">1200 R$</div>
+                        <div class="amount-option" data-value="1700">1700 R$</div>
+                        <div class="amount-option" data-value="4500">4500 R$</div>
+                        <div class="amount-option" data-value="22500">22500 R$</div>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 10px;">
+                    <button id="btn-cancel" class="action-trigger btn-secondary">Volver al Catálogo</button>
+                    <button id="btn-search" class="action-trigger btn-primary">Buscar Usuario</button>
+                </div>
+            </div>
+
+            <div id="donate-step" class="step-card">
+                <div class="user-profile">
+                    <div class="avatar-placeholder" id="user-avatar">U</div>
+                    <div class="user-info">
+                        <h3 id="target-user">@Usuario</h3>
+                        <div class="user-id" id="user-id-display">ID: 00000000</div>
+                        <span class="status-badge"><i class="fa-solid fa-circle"></i> En línea</span>
+                    </div>
+                </div>
+
+                <div class="btn-group" id="action-buttons">
+                    <button id="btn-back" class="action-trigger btn-secondary">Atrás</button>
+                    <button id="btn-send" class="action-trigger btn-success"><i class="fa-solid fa-paper-plane"></i> Confirmar Envío</button>
+                </div>
+
+                <div class="loading-box" id="loading-screen">
+                    <div class="spinner"></div>
+        
